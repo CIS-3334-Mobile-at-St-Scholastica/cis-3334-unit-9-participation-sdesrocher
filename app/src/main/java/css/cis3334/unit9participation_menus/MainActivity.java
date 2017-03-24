@@ -1,5 +1,6 @@
 package css.cis3334.unit9participation_menus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import static android.R.id.message;
+import static java.net.Proxy.Type.HTTP;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,8 +72,54 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
+            Toast.makeText(getApplicationContext(), "Adding study mates is not available yet", Toast.LENGTH_LONG)
+                    .show();
             return true;
+        }
+        if (id == R.id.action_delete) {
+            Toast.makeText(getApplicationContext(), "Deleting a study mate is not available yet", Toast.LENGTH_LONG)
+                    .show();
+            return true;
+        }
+
+        if (id == R.id.action_settings){
+
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+
+        }
+
+        if (id == R.id.action_email){
+            //public void composeEmail(String[] addresses, String subject){
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_EMAIL, "sdesrocher@css.edu");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Email");
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+
+            Toast.makeText(getApplicationContext(), "Email sent", Toast.LENGTH_LONG)
+                    .show();
+            return true;
+           // }
+        }
+
+        if (id == R.id.action_sms){
+
+            //public void composeMmsMessage(String message) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                //intent.setType(HTTP.PLAIN_TEXT_TYPE);
+                intent.putExtra("sms_body", message);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+           // }
+            Toast.makeText(getApplicationContext(), "SMS sent", Toast.LENGTH_LONG)
+                    .show();
+            return true;
+
         }
 
         return super.onOptionsItemSelected(item);
