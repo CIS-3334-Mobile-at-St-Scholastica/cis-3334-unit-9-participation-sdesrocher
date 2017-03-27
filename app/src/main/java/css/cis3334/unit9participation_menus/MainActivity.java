@@ -1,6 +1,7 @@
 package css.cis3334.unit9participation_menus;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,8 +33,11 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:"));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
 
@@ -91,35 +95,22 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.action_email){
-            //public void composeEmail(String[] addresses, String subject){
+
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setType("*/*");
-                intent.putExtra(Intent.EXTRA_EMAIL, "sdesrocher@css.edu");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Email");
+                intent.setData(Uri.parse("mailto:"));
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 }
+            }
 
-            Toast.makeText(getApplicationContext(), "Email sent", Toast.LENGTH_LONG)
-                    .show();
-            return true;
-           // }
-        }
 
         if (id == R.id.action_sms){
 
-            //public void composeMmsMessage(String message) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                //intent.setType(HTTP.PLAIN_TEXT_TYPE);
-                intent.putExtra("sms_body", message);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-           // }
-            Toast.makeText(getApplicationContext(), "SMS sent", Toast.LENGTH_LONG)
-                    .show();
-            return true;
-
+            //bring up SMS
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("sms:"));
+            intent.putExtra("sms_body", message);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -140,8 +131,35 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
+            //send email
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:"));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
 
         } else if (id == R.id.nav_send) {
+            //bring up SMS
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("sms:"));
+            intent.putExtra("sms_body", message);
+            startActivity(intent);
+
+
+        } else if (id == R.id.nav_add){
+            Toast.makeText(getApplicationContext(), "Adding study mates is not available yet", Toast.LENGTH_LONG)
+                    .show();
+            return true;
+
+        } else if (id == R.id.nav_delete){
+            Toast.makeText(getApplicationContext(), "Deleting a study mate is not available yet", Toast.LENGTH_LONG)
+                    .show();
+            return true;
+
+        } else if (id == R.id.nav_settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+
 
         }
 

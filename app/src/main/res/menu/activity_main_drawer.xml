@@ -18,7 +18,25 @@
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_action_settings"
+            android:title="Settings" />
     </group>
+
+    <item android:title="Edit">
+        <menu>
+            <item
+                android:id="@+id/nav_add"
+                android:icon="@drawable/ic_action_add"
+                android:title="Add" />
+            <item
+                android:id="@+id/nav_delete"
+                android:icon="@drawable/ic_action_delete"
+                android:title="Delete" />
+        </menu>
+    </item>
 
     <item android:title="Communicate">
         <menu>
